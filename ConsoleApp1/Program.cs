@@ -7,18 +7,14 @@ class Program
     static void Main(string[] args)
     {
         int potions = 5;        
-        Random rand = new Random();
-        int vieMaxHeros = rand.Next(90, 101);
-        int vieheros = vieMaxHeros;
-        int attaqueHeros = rand.Next(15, 20);
-        int defenseHeros = rand.Next(5, 11);
+        Random rand = new Random();        
         string[] nomsEnnemis = { "Pervert malsain", "Goblin", "Hobgoblin", "Orc", "homme lezard", "Gorak le Brutal", "Velra l'Écorcheuse", "Nox le Sanguinaire", "Kira la Maudite", "Sabrina la Ténébreuse" };
 
         Console.WriteLine("Bienvenue dans l'arène ... ");
         Console.WriteLine("Quel est ton nom heros ? ");
 
         string nomHeros = Console.ReadLine();
-        Personnage heros = new Personnage(nomHeros, vieheros,vieMaxHeros, attaqueHeros, defenseHeros);
+        Personnage heros = GenerateurHeros.Creer(nomHeros);
 
         for (int niveau = 1; niveau <= 10; niveau++)
         {
@@ -70,7 +66,7 @@ class Program
                     if (potions > 0)
                     {
                         int soin = rand.Next(20, 31);
-                        heros.Vie = Math.Min(heros.Vie + soin, vieMaxHeros);
+                        heros.Vie = Math.Min(heros.Vie + soin, heros.VieMax);
                         potions--;
                         Console.WriteLine($"{heros.Nom} se soigne de {soin} points de vie. ({heros.Vie} restants)");
                     }
@@ -95,14 +91,8 @@ class Program
                     Console.WriteLine($"\n{ennemi.Nom} a été vaincu ! {heros.Nom} gagne le combat !");
                     potions++;
                     Console.WriteLine($"Victoire ! Tu gagnes une potion. Potions restantes : {potions}");
-                    vieMaxHeros += rand.Next(6, 11); 
-                    attaqueHeros += rand.Next(1, 3);
-                    defenseHeros += 1;
-
-                    heros.Vie = Math.Min(heros.Vie + 20, vieMaxHeros);
-                    heros.VieMax = vieMaxHeros;
-                    heros.Attaque = attaqueHeros;
-                    heros.Defense = defenseHeros;
+                    
+                    GenerateurHeros.EvolutionHeros(heros);
 
                     if (niveau < 10)
                     {
