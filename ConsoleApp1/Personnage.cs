@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace ConsoleApp1
 {
-    internal class Personnage
+    public class Personnage
     {
         public string Nom;
         public int Vie;
