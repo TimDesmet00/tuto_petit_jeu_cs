@@ -51,8 +51,9 @@ class Program
                 if (choix == "1")
                 {
                     bool coupCritique = rand.Next(1, 10) == 1;
-                    int degatsHeros = heros.Attaque - ennemi.Defense + rand.Next(-2, 3);
-                    degatsHeros = Math.Max(0, degatsHeros);
+                    int penetrationHeros = rand.Next(1, 4);
+                    int degatsHeros = heros.Attaque - Math.Max(0, ennemi.Defense - penetrationHeros) + rand.Next(-2, 3);
+                    degatsHeros = Math.Max(1, degatsHeros);
                     if (coupCritique)
                     {
                         degatsHeros *= 2;
@@ -65,7 +66,7 @@ class Program
                 {
                     if (potions > 0)
                     {
-                        int soin = rand.Next(20, 31);
+                        int soin = rand.Next(25, 35);
                         heros.Vie = Math.Min(heros.Vie + soin, heros.VieMax);
                         potions--;
                         Console.WriteLine($"{heros.Nom} se soigne de {soin} points de vie. ({heros.Vie} restants)");
@@ -115,8 +116,9 @@ class Program
 
                 // Attaque de l'ennemi
                 bool ennemiCritique = rand.Next(1, 15) == 1;
-                int degatsennemi = ennemi.Attaque - heros.Defense + rand.Next(-2, 3);
-                degatsennemi = Math.Max(0, degatsennemi);
+                int penetrationEnnemi = rand.Next(0, 3);
+                int degatsennemi = ennemi.Attaque - Math.Max(0, heros.Defense - penetrationEnnemi) + rand.Next(-2, 3);
+                degatsennemi = Math.Max(1, degatsennemi);
                 if (ennemiCritique)
                 {
                     degatsennemi *= 2;
