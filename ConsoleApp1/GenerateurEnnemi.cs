@@ -31,5 +31,11 @@ namespace ConsoleApp1
 
             return new Personnage(nomEnnemi, vie, vieMax, attaque, defense);
         }
+
+        public static void EntrerSabrina()
+        {
+            Console.WriteLine("\nUne silhouette élégante et ténébreuse s'avance dans l’arène…");
+            Console.WriteLine("Ses yeux bleu perçants brillent dans l’ombre. C’est Sabrina, la poupée gothique déchue…\n");
+        }
     }
 }
