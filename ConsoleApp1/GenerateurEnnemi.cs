@@ -9,9 +9,12 @@ namespace ConsoleApp1
     internal class GenerateurEnnemi
     {
         private static Random rand = new Random();
-
+        private static readonly string[] nomsEnnemis = { "Pervert malsain", "Goblin", "Hobgoblin", "Orc", "homme lezard", "Charlotte la Féline", "Velra l'Écorcheuse", "Nox le Sanguinaire", "Kira la Maudite", "Sabrina la Ténébreuse" };
+        
         public static Personnage Creer(int niveau, string nom)
         {
+            string nomEnnemi = nomsEnnemis[niveau - 1];
+
             int baseVieMax = 60 + (niveau * 6);         
             int baseAttaque = 6 + (niveau * 2);      
             int baseDefense = 4 + (niveau * 2); 
@@ -26,7 +29,7 @@ namespace ConsoleApp1
 
             int vie = vieMax;
 
-            return new Personnage(nom, vie, vieMax, attaque, defense);
+            return new Personnage(nomEnnemi, vie, vieMax, attaque, defense);
         }
     }
 }

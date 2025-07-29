@@ -14,8 +14,8 @@ namespace ConsoleApp1
         {
             int vieMax = rand.Next(90, 101);
             int vie = vieMax;
-            int attaque = rand.Next(10, 15);
-            int defense = rand.Next(5, 11);
+            int attaque = rand.Next(10, 13);
+            int defense = rand.Next(6, 10);
             return new Personnage(nom, vie, vieMax, attaque, defense);
         }
 

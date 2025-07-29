@@ -8,7 +8,7 @@ class Program
     {
         int potions = 5;        
         Random rand = new Random();        
-        string[] nomsEnnemis = { "Pervert malsain", "Goblin", "Hobgoblin", "Orc", "homme lezard", "Gorak le Brutal", "Velra l'Écorcheuse", "Nox le Sanguinaire", "Kira la Maudite", "Sabrina la Ténébreuse" };
+        
 
         Console.WriteLine("Bienvenue dans l'arène ... ");
         Console.WriteLine("Quel est ton nom heros ? ");
@@ -19,16 +19,15 @@ class Program
         for (int niveau = 1; niveau <= 10; niveau++)
         {
             int tour = 1;
-            Console.WriteLine($"\nArène {niveau}/10");
-            string nomEnnemi = nomsEnnemis[niveau - 1];
+            Console.WriteLine($"\nArène {niveau}/10");       
 
-            if (nomEnnemi == "Sabrina la Ténébreuse")
+            Personnage ennemi = GenerateurEnnemi.Creer(niveau, "");
+
+            if (ennemi.Nom == "Sabrina la Ténébreuse")
             {
                 Console.WriteLine("\nUne silhouette élégante et ténébreuse s'avance dans l’arène…");
                 Console.WriteLine("Ses yeux bleu perçants brillent dans l’ombre. C’est Sabrina, la poupée gothique déchue…\n");
             }
-
-            Personnage ennemi = GenerateurEnnemi.Creer(niveau, nomEnnemi);
 
             Console.WriteLine("\nVoici tes stats :");
             heros.AfficherStats();
