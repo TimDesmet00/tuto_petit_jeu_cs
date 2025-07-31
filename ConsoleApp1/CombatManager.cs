@@ -109,6 +109,7 @@ namespace ConsoleApp1
                                 if (suite == "o")
                                 {
                                     reponseValide = true;
+                                    Console.Clear();
                                 }
                                 else if (suite == "n")
                                 {
