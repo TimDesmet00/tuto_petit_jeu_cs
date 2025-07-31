@@ -32,50 +32,60 @@ namespace ConsoleApp1
 
                 while (heros.Vie > 0 && ennemi.Vie > 0)
                 {
-                    Console.WriteLine($"\n--- Tour {tour} ---");
-                    Console.WriteLine("\nque veux-tu faire ?");
-                    Console.WriteLine("1. Attaquer");
-                    Console.WriteLine($"2. Te soigner ({potions} potions restante)");
-                    Console.WriteLine("3. Fuir, lâchement");
-                    Console.WriteLine("Choix : ");
-                    string choix = Console.ReadLine();
+                    string choix;
+                    bool actionValide = false;
 
-                    if (choix == "1")
+                    while (!actionValide)
                     {
-                        bool coupCritique = rand.Next(1, 10) == 1;
-                        int penetrationHeros = rand.Next(1, 4);
-                        int degatsHeros = heros.Attaque - Math.Max(0, ennemi.Defense - penetrationHeros) + rand.Next(-2, 3);
-                        degatsHeros = Math.Max(1, degatsHeros);
-                        if (coupCritique)
+                        Console.WriteLine($"\n--- Tour {tour} ---");
+                        Console.WriteLine("\nque veux-tu faire ?");
+                        Console.WriteLine("1. Attaquer");
+                        Console.WriteLine($"2. Te soigner ({potions} potions restante)");
+                        Console.WriteLine("3. Fuir, lâchement");
+                        Console.WriteLine("Choix : ");
+                        choix = Console.ReadLine();
+
+                        if (choix == "1")
                         {
-                            degatsHeros *= 2;
-                            Console.WriteLine("Coup critique !");
+                            bool coupCritique = rand.Next(1, 10) == 1;
+                            int penetrationHeros = rand.Next(1, 4);
+                            int degatsHeros = heros.Attaque - Math.Max(0, ennemi.Defense - penetrationHeros) + rand.Next(-2, 3);
+                            degatsHeros = Math.Max(1, degatsHeros);
+                            if (coupCritique)
+                            {
+                                degatsHeros *= 2;
+                                Console.WriteLine("Coup critique !");
+                            }
+                            ennemi.Vie -= degatsHeros;
+                            Console.WriteLine($"{heros.Nom} attaque ! {ennemi.Nom} perd {degatsHeros} points de vie. ({Math.Max(0, ennemi.Vie)} restants)");
+                            actionValide = true;
                         }
-                        ennemi.Vie -= degatsHeros;
-                        Console.WriteLine($"{heros.Nom} attaque ! {ennemi.Nom} perd {degatsHeros} points de vie. ({Math.Max(0, ennemi.Vie)} restants)");
-                    }
-                    else if (choix == "2")
-                    {
-                        if (potions > 0)
+                        else if (choix == "2")
                         {
-                            int soin = rand.Next(25, 35);
-                            heros.Vie = Math.Min(heros.Vie + soin, heros.VieMax);
-                            potions--;
-                            Console.WriteLine($"{heros.Nom} se soigne de {soin} points de vie. ({heros.Vie} restants)");
+                            if (potions > 0)
+                            {
+                                int soin = rand.Next(25, 35);
+                                heros.Vie = Math.Min(heros.Vie + soin, heros.VieMax);
+                                potions--;
+                                Console.WriteLine($"{heros.Nom} se soigne de {soin} points de vie. ({heros.Vie} restants)");
+                            }
+                            else
+                            {
+                                Console.WriteLine("Tu n'as plus de potions !");
+                            }
+                            actionValide = true;
+                        }
+                        else if (choix == "3")
+                        {
+                            Console.WriteLine($"{heros.Nom} est un couard et fuis le combat !!");
+                            return false;
                         }
                         else
                         {
-                            Console.WriteLine("Tu n'as plus de potions !");
+                            Console.ForegroundColor = ConsoleColor.Red;
+                            Console.WriteLine("Choix invalide, essaie encore !");
+                            Console.ResetColor();
                         }
-                    }
-                    else if (choix == "3")
-                    {
-                        Console.WriteLine($"{heros.Nom} est un couard et fuis le combat !!");
-                        return false;
-                    }
-                    else
-                    {
-                        Console.WriteLine("Choix invalide, tu perds ton tour !");
                     }
 
                     // Si l'ennemi est mort
@@ -89,12 +99,28 @@ namespace ConsoleApp1
 
                         if (niveau < 10)
                         {
-                            Console.WriteLine("Souhaites-tu continuer vers la prochaine arène ? (o/n)");
-                            string suite = Console.ReadLine();
-                            if (suite.ToLower() != "o")
+                            bool reponseValide = false;
+
+                            while (!reponseValide)
                             {
-                                Console.WriteLine("Tu quittes l’arène en champion… mais pas encore le maître suprême !");
-                                return false;
+                                Console.WriteLine("Souhaites-tu continuer vers la prochaine arène ? (o/n)");
+                                string suite = Console.ReadLine().ToLower();
+
+                                if (suite == "o")
+                                {
+                                    reponseValide = true;
+                                }
+                                else if (suite == "n")
+                                {
+                                    Console.WriteLine("Tu quittes l’arène en champion… mais pas encore le maître suprême !");
+                                    return false;
+                                }
+                                else 
+                                {
+                                    Console.ForegroundColor = ConsoleColor.Red;
+                                    Console.WriteLine("Réponse invalide. Tape 'o' pour continuer ou 'n' pour quitter.");
+                                    Console.ResetColor();
+                                }
                             }
                         }
                         else

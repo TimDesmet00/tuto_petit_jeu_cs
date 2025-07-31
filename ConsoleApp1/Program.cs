@@ -25,5 +25,8 @@ class Program
         {
             Console.WriteLine("Essaie encore, tu peux le faire !");
         }
+
+        Console.WriteLine("\nAppuie sur Entrée pour quitter le jeu...");
+        Console.ReadLine();
     }
 }
