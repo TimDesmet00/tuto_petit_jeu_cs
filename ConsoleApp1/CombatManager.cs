@@ -20,10 +20,7 @@ namespace ConsoleApp1
 
                 Personnage ennemi = GenerateurEnnemi.Creer(niveau, "");
 
-                if (ennemi.Nom == "Sabrina la Ténébreuse")
-                {
-                    GenerateurEnnemi.EntrerSabrina();
-                }
+                GenerateurEnnemi.EntreesEnnemis[niveau - 1]();
 
                 Console.WriteLine("\nVoici tes stats :");
                 heros.AfficherStats();
