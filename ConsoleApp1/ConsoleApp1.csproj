@@ -5,6 +5,10 @@
     <TargetFramework>net8.0</TargetFramework>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
+    <AssemblyName>Arène</AssemblyName>
+	<Product>TimToLife</Product>
+	<Title>Arène</Title>
+	<Description>Ton jeu d'arène fantastique</Description>
   </PropertyGroup>
 
 </Project>
